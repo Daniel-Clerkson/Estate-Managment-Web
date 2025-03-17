@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.b-g{
+    border: 1.5px solid rgb(2, 139, 2);
+}
+
+.width{
+    width: -webkit-fill-available;
+}
