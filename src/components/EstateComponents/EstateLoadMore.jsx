@@ -1,8 +1,8 @@
 import React from 'react'
 
-const EstateLoadMore = () => {
+const EstateLoadMore = ({teken}) => {
   return (
-    <div>EstateLoadMore</div>
+    <div>{teken}</div>
   )
 }
 
