@@ -56,21 +56,21 @@ const EstateImages = ({estate}) => {
       {dataVal ? (
         <div className="images flex flex-wrap p-5 m-5 items-center justify-between relative">
           {dataVal.images.length > 0 ? dataVal.images.map((datas) => (
-            <div className="frontView m-5" key={datas.document}>
+            <div className="frontView m-5  w-2/5" key={datas.document}>
               <div className="relative ml-5">
-                <div className="absolute top-32 md:top-64 p-3 ">
+                {/* <div className="absolute top-32 md:top-64 p-3 ">
                   <p className="text-green-800 bg-white rounded-2xl pl-4 pr-4 ml-3 text-center font-semibold">
                     Side View
                   </p>
                   <p className="bg-green-800 border text-white rounded-2xl pl-4 pr-4 ml-3 font-semibold mt-2 text-center">
                     Actual Image
                   </p>
-                </div>
+                </div> */}
                 <img
                   src={
                     datas.document
                   }
-                  className="rounded-xl"
+                  className="rounded-xl w-full"
                 />
               </div>
             </div>

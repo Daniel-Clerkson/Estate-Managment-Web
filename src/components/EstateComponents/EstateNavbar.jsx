@@ -1,12 +1,57 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'
 import { FaOutdent, FaArrowLeft, FaEdit } from 'react-icons/fa'
 import { FaX } from 'react-icons/fa6'
-const EstateNavbar = () => {
+const EstateNavbar = ({estate}) => {
 
-    const navigate = useNavigate();
+  let [dataVal, setData] = useState();
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  let data;
+
+  const fetchEstates = async () => {
+    setLoading(true);
+
+    try {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        console.error("No token found in localStorage");
+        setLoading(false);
+        return;
+      }
+      const details = await fetch(
+        `https://dev-api.giddaa.com/developer/estate/${estate}`,
+        {
+          headers: {
+            method: "GET",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!details.ok) {
+        console.error("Fetch error:", details.statusText);
+        setLoading(false);
+        return;
+      }
+      const response = await details.json();
+      const responseData = await response.value.value.name;
+      data = await responseData;
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      setData(data);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchEstates();
+  }, []);
+
 
     const[dropDownOpen, setDropDownOpen] = useState(false);
 
@@ -26,7 +71,7 @@ const EstateNavbar = () => {
                 <button onClick={()=>navigate('/home')} className='flex justify-between mr-2 pt-1 pb-1 pr-2 pl-2 rounded-md text-green-700 b-g font-semibold hover:text-white hover:bg-green-700 hidden sm:flex'><h1 className='mr-3 font-semi-bold flex items-center flex-wrap justify-between'> <FaArrowLeft className='text-sm mr-2' /></h1>Back</button>
               </div>
               <div className="header p-1 flex items-center justify-between width">  
-                <h2 className='font-serif font-extrabold sm:text-xl mr-4'>Crescent Garden Court</h2><FaOutdent onClick={()=>setDropDownOpen(true)}  className='sm:hidden'/>
+                <h2 className='font-serif font-extrabold sm:text-xl mr-4'>{dataVal ? dataVal : console.log("Loading ...")}</h2><FaOutdent onClick={()=>setDropDownOpen(true)}  className='sm:hidden'/>
               </div>
           <div className={`${isOpen(dropDownOpen)}`}>
                 <FaX className='mb-10 mt-5' onClick={()=>setDropDownOpen(false)} />
@@ -46,7 +91,7 @@ const EstateNavbar = () => {
           <span> {">"}</span>
         </div>
         <div className="next text-sm sm:text-md">
-          <span>Crescent Garden Court</span>
+          <span>{dataVal ? dataVal : "loading..."}</span>
         </div>
       </div>
     </div>
