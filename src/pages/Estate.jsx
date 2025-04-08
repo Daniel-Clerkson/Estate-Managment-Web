@@ -6,7 +6,7 @@ import EstateDetails from "../components/EstateComponents/EstateDetails";
 const Estate = ({data}) => {
   return (
     <div>
-      <EstateNavbar estate={window.location.href.substr(29)} />
+      <EstateNavbar estate={window.location.href.substr(47)} />
       <EstateHero />
       <EstateDetails />
     </div>
