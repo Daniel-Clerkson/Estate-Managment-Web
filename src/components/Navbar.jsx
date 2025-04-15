@@ -1,4 +1,4 @@
-import { FaSearch, FaPlayCircle, FaArrowDown, FaArrowLeft, FaEdit, FaBell, FaShare, FaClock, FaOutdent, FaPlus } from "react-icons/fa";
+import { FaSearch, FaPlayCircle, FaArrowDown, FaArrowLeft, FaEdit, FaBell, FaShare, FaClock, FaOutdent, FaPlus, FaSignOutAlt } from "react-icons/fa";
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FaX, FaHouse, FaHotel, FaCircleDot } from "react-icons/fa6";
@@ -16,6 +16,11 @@ const Navbar = () => {
      } else {
        return "hidden";
      }
+  };
+
+  const logOut = () => {
+    localStorage.clear("token");
+    navigate("/");
   };
 
 
@@ -45,8 +50,12 @@ const Navbar = () => {
               <FaArrowLeft className="text-sm mr-2" /> Back
             </h2>
             <h2 className="flex items-center flex-wrap justify-between">
-              {" "}
+              {(onClick = () => navigate("/estate/create"))}
               Create Estate <FaPlus className="text-sm mr-2" />
+            </h2>
+            <h2 className="flex items-center flex-wrap justify-between">
+              {(onClick = () => logOut)}
+              Log Out <FaSignOutAlt className="text-sm mr-2" />
             </h2>
           </div>
         </div>

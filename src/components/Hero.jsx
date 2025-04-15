@@ -14,6 +14,11 @@ const Hero = () => {
   const navigate = useNavigate();
   let data;
 
+  const logOut = () => {
+    localStorage.clear("token");
+    navigate("/");
+  };
+
   const fetchEstates = async () => {
     setLoading(true);
 
