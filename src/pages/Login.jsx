@@ -18,7 +18,7 @@ const Login = () => {
             }
     }, [])
 
-    const loginData = async () => {
+    const loginData = {
         email,
         password,
         "type": "DEVELOPER"
